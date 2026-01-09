@@ -1,9 +1,12 @@
+<script setup lang="ts">
+import FeedbackTable from "./components/FeedbackTable.vue";
+</script>
 <template>
   <header>
     <h1>7P Demo App</h1>
   </header>
 
   <main>
-    Your work goes here :)
+    <FeedbackTable />
   </main>
 </template>
