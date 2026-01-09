@@ -3,12 +3,15 @@ import jakarta.persistence.*;
 
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.sevenp.feedback.DTO.FeedbackCreateDTO;
 import org.sevenp.feedback.DTO.FeedbackDTO;
 
 import java.util.UUID;
 
 @Entity
 @Data
+@NoArgsConstructor
 public class FeedbackDAO {
 
     @Id
@@ -29,8 +32,11 @@ public class FeedbackDAO {
         this.helpfulCount = feedback.getHelpfulCount();
     }
 
-    public FeedbackDAO() {
-
+    public FeedbackDAO(FeedbackCreateDTO feedbackCreateDTO) {
+        this.id = UUID.randomUUID();
+        this.message = feedbackCreateDTO.getMessage();
+        this.author = feedbackCreateDTO.getAuthor();
+        this.helpfulCount = 0;
     }
 
     public FeedbackDTO toDTO() {

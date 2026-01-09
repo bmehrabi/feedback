@@ -1,5 +1,6 @@
 package org.sevenp.feedback.controller;
 
+import org.sevenp.feedback.DTO.FeedbackCreateDTO;
 import org.sevenp.feedback.DTO.FeedbackDTO;
 import org.sevenp.feedback.service.FeedbackService;
 import org.springframework.http.HttpStatus;
@@ -30,8 +31,8 @@ public class FeedbackController {
     }
 
     @PostMapping("")
-    public ResponseEntity<FeedbackDTO> create(@RequestBody FeedbackDTO feedback) {
-        return new ResponseEntity<>(feedbackService.create(feedback), HttpStatus.CREATED);
+    public ResponseEntity<FeedbackDTO> create(@RequestBody FeedbackCreateDTO feedbackCreateDTO) {
+        return new ResponseEntity<>(feedbackService.create(feedbackCreateDTO), HttpStatus.CREATED);
     }
 
     @PutMapping("{id}/helpful")

@@ -1,5 +1,6 @@
 package org.sevenp.feedback.service;
 
+import org.sevenp.feedback.DTO.FeedbackCreateDTO;
 import org.sevenp.feedback.DTO.FeedbackDTO;
 import org.sevenp.feedback.entity.FeedbackDAO;
 import org.sevenp.feedback.exception.FeedbackNotFoundException;
@@ -18,9 +19,11 @@ public class FeedbackService {
         this.repository = repository;
     }
 
-    public FeedbackDTO create(FeedbackDTO feedbackDTO) {
-        FeedbackDAO feedbackDAO = new FeedbackDAO(feedbackDTO);
+    public FeedbackDTO create(FeedbackCreateDTO feedbackCreateDTO) {
+        FeedbackDAO feedbackDAO = new FeedbackDAO();
         feedbackDAO.setId(UUID.randomUUID());
+        feedbackDAO.setMessage(feedbackCreateDTO.getMessage());
+        feedbackDAO.setAuthor(feedbackCreateDTO.getAuthor());
         feedbackDAO.setHelpfulCount(0);
 
         FeedbackDAO created = repository.save(feedbackDAO);
