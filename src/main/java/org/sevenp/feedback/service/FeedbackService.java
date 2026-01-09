@@ -5,6 +5,7 @@ import org.sevenp.feedback.entity.FeedbackDAO;
 import org.sevenp.feedback.repository.FeedbackRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -23,5 +24,13 @@ public class FeedbackService {
         FeedbackDAO created = repository.save(feedbackDAO);
 
         return created.toDTO();
+    }
+
+    public List<FeedbackDTO> findAll() {
+        return repository
+                .findAll()
+                .stream()
+                .map(FeedbackDAO::toDTO)
+                .toList();
     }
 }
