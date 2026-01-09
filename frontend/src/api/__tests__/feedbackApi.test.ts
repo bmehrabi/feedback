@@ -1,9 +1,9 @@
 import { describe, it, expect, vi } from "vitest";
-import { fetchFeedbacks } from "../feedbackApi";
+import {createFeedback, fetchFeedbacks} from "../feedbackApi";
 import { api } from "../axios";
 
-describe("fetchFeedbacks", () => {
-  it("should fetch feedbacks from API", async () => {
+describe("feedbackApi", () => {
+  it("fetchFeedbacks should fetch feedbacks from API", async () => {
     const mockData = [
       {
         id: "1",
@@ -21,5 +21,28 @@ describe("fetchFeedbacks", () => {
 
     expect(api.get).toHaveBeenCalledWith("/feedback");
     expect(result).toEqual(mockData);
+  });
+
+  it("createFeedback should post feedback", async () => {
+    const dto = {
+      message: "Great",
+      author: "Bob",
+    };
+
+    const response = {
+      id: "2",
+      message: "Great",
+      author: "Bob",
+      helpfulCount: 0,
+    };
+
+    vi.spyOn(api, "post").mockResolvedValue({
+      data: response,
+    } as any);
+
+    const result = await createFeedback(dto);
+
+    expect(api.post).toHaveBeenCalledWith("/feedback", dto);
+    expect(result).toEqual(response);
   });
 });

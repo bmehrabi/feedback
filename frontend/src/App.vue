@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import FeedbackForm from "./components/feedbackForm.vue";
 import FeedbackTable from "./components/FeedbackTable.vue";
 </script>
 <template>
@@ -8,5 +9,6 @@ import FeedbackTable from "./components/FeedbackTable.vue";
 
   <main>
     <FeedbackTable />
+    <FeedbackForm />
   </main>
 </template>
