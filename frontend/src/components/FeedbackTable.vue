@@ -1,16 +1,26 @@
 <script setup lang="ts">
-import { useQuery } from "@tanstack/vue-query";
-import { fetchFeedbacks, type FeedbackDTO } from "@/api/feedbackApi";
+import {useMutation, useQuery, useQueryClient} from "@tanstack/vue-query";
+import {fetchFeedbacks, type FeedbackDTO, markFeedbackHelpful} from "@/api/feedbackApi";
+
+const queryClient = useQueryClient();
 
 const headers = [
   { title: "Message", key: "message" },
   { title: "Author", key: "author" },
   { title: "Helpful", key: "helpfulCount" },
+  { title: "Actions", value: "actions" },
 ];
 
 const { data, isLoading, isError, error } = useQuery<FeedbackDTO[]>({
   queryKey: ["feedbacks"],
   queryFn: fetchFeedbacks,
+});
+
+const markHelpfulMutation = useMutation({
+  mutationFn: markFeedbackHelpful,
+  onSuccess: () => {
+    queryClient.invalidateQueries({ queryKey: ["feedbacks"] });
+  },
 });
 </script>
 
@@ -53,6 +63,21 @@ const { data, isLoading, isError, error } = useQuery<FeedbackDTO[]>({
             {{ value }}
           </v-chip>
         </template>
+
+        <!-- Actions -->
+        <template #item.actions="{ item }">
+          <v-btn
+              icon
+              color="success"
+              size="small"
+              :loading="markHelpfulMutation.isPending.value"
+              :disabled="markHelpfulMutation.isPending.value"
+              @click="markHelpfulMutation.mutate(item.id)"
+          >
+            <v-icon>mdi-thumb-up</v-icon>
+          </v-btn>
+        </template>
+
       </v-data-table>
     </v-card>
   </v-container>

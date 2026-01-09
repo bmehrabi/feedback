@@ -23,3 +23,10 @@ export const createFeedback = async (
   const res = await api.post("/feedback", dto);
   return res.data;
 };
+
+export const markFeedbackHelpful = async (
+  id: string
+): Promise<FeedbackDTO> => {
+  const res = await api.put(`/feedback/${id}/helpful`);
+  return res.data;
+};

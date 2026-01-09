@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from "vitest";
-import {createFeedback, fetchFeedbacks} from "../feedbackApi";
+import {createFeedback, fetchFeedbacks, markFeedbackHelpful} from "../feedbackApi";
 import { api } from "../axios";
 
 describe("feedbackApi", () => {
@@ -44,5 +44,25 @@ describe("feedbackApi", () => {
 
     expect(api.post).toHaveBeenCalledWith("/feedback", dto);
     expect(result).toEqual(response);
+  });
+
+  it("markFeedbackHelpful should call PUT and return updated feedback", async () => {
+    const id = "123";
+
+    const updatedFeedback = {
+      id,
+      message: "Nice",
+      author: "Alice",
+      helpfulCount: 3,
+    };
+
+    vi.spyOn(api, "put").mockResolvedValue({
+      data: updatedFeedback,
+    } as any);
+
+    const result = await markFeedbackHelpful(id);
+
+    expect(api.put).toHaveBeenCalledWith(`/feedback/${id}/helpful`);
+    expect(result).toEqual(updatedFeedback);
   });
 });

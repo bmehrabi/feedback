@@ -14,7 +14,10 @@ import {
   VTextField,
   VTextarea,
   VSpacer,
-  VDataTable
+  VDataTable,
+  VIcon,
+  VChip,
+  VSkeletonLoader,
 } from "vuetify/components";
 
 export const vuetify = createVuetify({
@@ -32,6 +35,9 @@ export const vuetify = createVuetify({
     VTextarea,
     VSpacer,
     VDataTable,
+    VIcon,
+    VChip,
+    VSkeletonLoader,
   },
   icons: {
     defaultSet: "mdi",
