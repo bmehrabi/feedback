@@ -3,7 +3,7 @@ import FeedbackTable from "./components/FeedbackTable.vue";
 </script>
 <template>
   <header>
-    <h1>7P Demo App</h1>
+    <h1>Simple Feedback Module</h1>
   </header>
 
   <main>
